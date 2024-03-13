@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import NewsItem from "./NewsItem";
 export class News extends Component {
+  articleCount = 0;
   map = {
     indiaBusiness:
       "https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=a0ceb7a3cdfc417bb0746b53995c1d24",
@@ -9,14 +10,18 @@ export class News extends Component {
   };
   constructor() {
     super();
-    this.state = { articles: [], loading: false };
+    this.state = { articles: [], loading: false, page: 1, totalResults: null };
   }
-
+  handlePrevClick = async () => {
+    this.setState({ page: this.state.page - 1 });
+    await this.getApiData();
+  };
+  handleNextClick = async () => {
+    this.setState({ page: this.state.page + 1 });
+    await this.getApiData();
+  };
   async componentDidMount() {
-    const apiKey = this.map["indiaBusiness"];
-    const data = await fetch(apiKey);
-    const parsedData = await data.json();
-    this.setState({ articles: parsedData?.articles });
+    await this.getApiData();
   }
   render() {
     return (
@@ -34,8 +39,39 @@ export class News extends Component {
             </div>
           ))}
         </div>
+        <div className="d-grid gap-2 d-flex justify-content-between">
+          <button
+            disabled={this.state.page === 1}
+            className="btn btn-outline-secondary me-md-2"
+            type="button"
+            onClick={this.handlePrevClick}
+          >
+            Prev
+          </button>
+          <button
+            disabled={
+              !(this.state.page <= Math.ceil(this.state.totalResults / 20))
+            }
+            className="btn btn-outline-success"
+            type="button"
+            onClick={this.handleNextClick}
+          >
+            Next
+          </button>
+        </div>
       </div>
     );
+  }
+
+  async getApiData() {
+    const apiKey = this.map["indiaBusiness"];
+    const key = `${apiKey}&page=${this.state.page}&pageSize=20`;
+    const data = await fetch(key);
+    const parsedData = await data.json();
+    this.setState({
+      articles: parsedData?.articles,
+      totalResults: parsedData?.totalResults,
+    });
   }
 }
 
