@@ -96,9 +96,9 @@ export class News extends Component {
     const key = `${apiKey}&page=${this.state.page}&category=${category}&pageSize=20`;
     const data = await fetch(key);
     const parsedData = await data.json();
-    this.setState({ loading: false });
 
     this.setState({
+      loading: false,
       articles: parsedData?.articles,
       totalResults: parsedData?.totalResults,
     });
