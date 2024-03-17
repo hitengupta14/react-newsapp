@@ -1,17 +1,15 @@
 import React, { Component } from "react";
-// import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 export class Navbar extends Component {
-  //   static propTypes = {};
-
   render() {
     return (
       <div>
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
           <div className="container-fluid">
-            <a className="navbar-brand" href="/">
+            <Link className="navbar-brand" to="/">
               Daily Dose
-            </a>
+            </Link>
             <button
               className="navbar-toggler"
               type="button"
@@ -29,45 +27,39 @@ export class Navbar extends Component {
             >
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <a className="nav-link active" aria-current="page" href="/">
-                    Sport News
-                  </a>
+                  <Link className="nav-link active" aria-current="page" to="/sports">
+                    Sports News
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/">
-                    Weather news
-                  </a>
+                  <Link className="nav-link" to="/general">
+                    General News
+                  </Link>
                 </li>
-                <li className="nav-item dropdown">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    href="/"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Dropdown
-                  </a>
-                  <ul className="dropdown-menu">
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Action
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Another action
-                      </a>
-                    </li>
-                    <li>
-                      <hr className="dropdown-divider" />
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Something else here
-                      </a>
-                    </li>
-                  </ul>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/business">
+                    Business News
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/entertainment">
+                    Entertainment News
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/health">
+                    Health News
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/science">
+                    Science News
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/technology">
+                    Technology News
+                  </Link>
                 </li>
               </ul>
             </div>
