@@ -15,7 +15,7 @@ export const App = () => {
             exact
             key="home"
             path="/"
-            element={<News category="general"></News>}
+            element={<News category="everthing"></News>}
           />
           <Route
             exact
