@@ -43,6 +43,12 @@ export class News extends Component {
       await this.setApiData(this.props.category);
     }
   }
+  async componentDidUpdate(prevProps) {
+    if (this.props.category !== prevProps.category) {
+      this.setState({ category: this.props?.category });
+      await this.getApiData(this.props.category);
+    }
+  }
   render() {
     return (
       <div className="container my-2">
