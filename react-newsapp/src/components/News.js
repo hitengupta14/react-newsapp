@@ -11,11 +11,10 @@ const News = (props) => {
 
   useEffect(() => {
     setApiData(props?.category);
-     // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [props?.category]);
 
   const fetchMoreData = async () => {
-    setPage(page + 1);
     const data = await getApiData(props?.category);
     const other = [...articles, ...data?.articles];
     setArticles(other);
@@ -39,17 +38,23 @@ const News = (props) => {
   };
 
   const getApiData = async (category) => {
-    const apiKey =
+    setPage(page + 1);
+    let apiKey =
       "https://newsapi.org/v2/top-headlines?country=in&apiKey=a0ceb7a3cdfc417bb0746b53995c1d24";
-    const key = `${apiKey}&page=${page}&category=${
+    let key = `${apiKey}&page=${page + 1}&category=${
       category ?? "general"
     }&pageSize=20`;
+    if (category === "everthing") {
+      apiKey =
+        "https://newsapi.org/v2/everything?q=politics&apiKey=a0ceb7a3cdfc417bb0746b53995c1d24";
+      key = `${apiKey}&page=${page + 1}&pageSize=20`;
+    }
     const data = await fetch(key);
     return data?.json();
   };
 
   return (
-    <div className="container my-2">
+    <div className="container" style={{ marginTop: "90px" }}>
       <h4>Top News</h4>
       <InfiniteScroll
         dataLength={articles?.length}
